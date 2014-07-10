@@ -14,22 +14,24 @@ load = function(i,s,o,g,r,a,m) {
     m.parentNode.insertBefore(a,m)
 };
 
-if(typeof AppConfig !== "undefined" && typeof AppConfig.GANALYTICS !== "undefined") {
+setTimeout(function() {
+    if(typeof AppConfig !== "undefined" && typeof AppConfig.GANALYTICS !== "undefined") {
 
-  load(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      load(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', AppConfig.GANALYTICS, 'auto');
+      ga('create', AppConfig.GANALYTICS, 'auto');
 
-  GAnalytics.pageview = function(pageLocation) {
-    if(!pageLocation) {
-      pageLocation = window.location.pathname;
+      GAnalytics.pageview = function(pageLocation) {
+        if(!pageLocation) {
+          pageLocation = window.location.pathname;
+        }
+        ga('send', 'pageview', pageLocation);
+      }
+
+      GAnalytics.event = function(category, action, label, value) {
+        ga('send', 'event', category, action, label, value);
+      }
+    } else {
+      console.log("google analytics account has not been set");
     }
-    ga('send', 'pageview', pageLocation);
-  }
-
-  GAnalytics.event = function(category, action, label, value) {
-    ga('send', 'event', category, action, label, value);
-  }
-} else {
-  console.log("google analytics account has not been set");
-}
+}, 1500);
