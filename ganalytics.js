@@ -14,7 +14,7 @@ load = function(i,s,o,g,r,a,m) {
     m.parentNode.insertBefore(a,m)
 };
 
-if(AppConfig.GANALYTICS) {
+if(typeof AppConfig !== "undefined" && typeof AppConfig.GANALYTICS !== "undefined") {
 
   load(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
